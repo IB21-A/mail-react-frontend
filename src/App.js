@@ -1,15 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
+// bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+// styles
 import './App.css';
+
 import GetData from "./components/getData";
 
+// Styles
+import { GlobalStyle } from "./globalstyle";
+
 function App() {
-  return (
-    <React.Fragment>
-		<div className="App">
-			<GetData />
-		</div>
-    </React.Fragment>
+	return (
+		<React.Fragment>
+			<div className="App">
+				<GetData />
+			</div>
+			<GlobalStyle />
+		</React.Fragment>
 	);
 }
 
