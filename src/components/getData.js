@@ -12,10 +12,9 @@ class GetData extends Component {
 	};
 
 	componentDidMount() {
-		// this.getMessage();
+	
 		this.login();
-		// this.getMailBox();
-		// this.test();
+
 	}
 	// const myMessage = getMessage();
 	// console.log(message);
@@ -25,7 +24,7 @@ class GetData extends Component {
 			const response = await fetch(apiRoute);
 			const { message } = await response.json();
 			// console.log(message);
-			this.setState({ message });
+			this.setState( message );
 		} catch (ex) {
 			if (ex.response && ex.response.status === 400) {
 				console.log(ex.response.data);
@@ -96,14 +95,9 @@ class GetData extends Component {
 	};
 
 	render() {
-		const info = "data";
-		console.log(info);
-		const { emails } = this.state;
-		console.log(emails);
 		return (
 			<div>
 				"Hello"
-				<div>{info}</div>
 				<div>{this.state.message}</div>
 				<div>{this.state.user}</div>
 				<Home />

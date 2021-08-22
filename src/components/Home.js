@@ -6,43 +6,46 @@ import axiosInstance from "../axios";
 // Components
 import Navigation from "./Navigation";
 import MessageLine from "./MessageLine";
+import Mailbox from "./Mailbox";
 
 const Home = () => {
-	// const { messages } = useMessageFetch;
+	const { messages, setMailbox, mailbox } = useMessageFetch();
 
-	const [mailbox, setMailbox] = useState("inbox");
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(false);
-	const [messages, setMessages] = useState([]);
+	// const [mailbox, setMailbox] = useState("inbox");
+	// const [loading, setLoading] = useState(false);
+	// const [error, setError] = useState(false);
+	// const [messages, setMessages] = useState([]);
 
 	// initial render
-	useEffect(() => {
-		const fetchMessages = async () => {
-			try {
-				setError(false);
-				setLoading(true);
+	// useEffect(() => {
+	// 	const fetchMessages = async () => {
+	// 		try {
+	// 			setError(false);
+	// 			setLoading(true);
 
-				const result = await axiosInstance.get(`/emails/${mailbox}/`);
-				console.log("fetching messages");
-				console.log(result.data);
+	// 			const result = await axiosInstance.get(`/emails/${mailbox}/`);
+	// 			console.log("fetching messages");
+	// 			console.log(result.data);
 
-				// setMessages(() => ({
-				// 	messages: result.data,
-				// }));
-				setMessages(result.data);
-			} catch (ex) {
-				setError(true);
-			}
-			setLoading(false);
-		};
+	// 			// setMessages(() => ({
+	// 			// 	messages: result.data,
+	// 			// }));
+	// 			setMessages(result.data);
+	// 		} catch (ex) {
+	// 			setError(true);
+	// 		}
+	// 		setLoading(false);
+	// 	};
 
-		fetchMessages();
-	}, [mailbox]);
+	// 	fetchMessages();
+	// }, [mailbox]);
+
 
 	return (
 		<>
-			<Navigation mailbox setMailbox />
-			{messages.map((message) => (
+			<Navigation mailbox={mailbox} setMailbox={setMailbox} />
+			<Mailbox messages={messages}/>
+			{/* {messages.map((message) => (
 				<MessageLine
 					key={message.id}
 					sender={message.sender}
@@ -50,9 +53,9 @@ const Home = () => {
 					read={message.read}
 					timestamp={message.timestamp}
 				/>
-			))}
+			))} */}
 		</>
 	);
-};
+};;
 
 export default Home;
