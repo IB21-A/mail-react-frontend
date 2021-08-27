@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Home from "./Home";
 import axiosInstance from "../axios";
 // import { getMessage } from "./services/apiService";
-import { useMessageFetch } from "./hooks/useMessageFetch";
+// import { useMessageFetch } from "../hooks/useMessageFetch";
 
 class GetData extends Component {
 	state = {
@@ -12,9 +12,7 @@ class GetData extends Component {
 	};
 
 	componentDidMount() {
-	
 		this.login();
-
 	}
 	// const myMessage = getMessage();
 	// console.log(message);
@@ -59,7 +57,7 @@ class GetData extends Component {
 	};
 
 	login = async () => {
-		const apiRoute = "http://127.0.0.1:8000/api/token";
+	
 		// const username = "ib21@cs50.com";
 		// const password = "a42d8c2019";
 		const username = "thom@cs50.com";

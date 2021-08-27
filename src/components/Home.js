@@ -1,11 +1,10 @@
 import React from "react";
 // Hooks
-import { useMessageFetch } from "./hooks/useMessageFetch";
+import { useMessageFetch } from "../hooks/useMessageFetch";
 import { useState, useEffect } from "react";
 import axiosInstance from "../axios";
 // Components
 import Navigation from "./Navigation";
-import MessageLine from "./MessageLine";
 import Mailbox from "./Mailbox";
 
 const Home = () => {

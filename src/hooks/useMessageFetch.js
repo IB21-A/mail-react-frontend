@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axiosInstance from "./../../axios";
-
+import axiosInstance from "../axios";
 
 export const useMessageFetch = () => {
 	const [mailbox, setMailbox] = useState("inbox");
