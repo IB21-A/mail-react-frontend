@@ -3,6 +3,10 @@ import { Wrapper } from "./Mailbox.styles";
 import MessageLine from "../MessageLine";
 
 const Mailbox = ({ messages }) => {
+	// const handleClick = () {
+
+	// };
+
 	return (
 		<Wrapper>
 			{messages.map((message) => (
@@ -12,6 +16,7 @@ const Mailbox = ({ messages }) => {
 					subject={message.subject}
 					read={message.read}
 					timestamp={message.timestamp}
+					// onClick={handleClick}
 				/>
 			))}
 		</Wrapper>

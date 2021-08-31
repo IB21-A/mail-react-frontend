@@ -95,10 +95,10 @@ class GetData extends Component {
 	render() {
 		return (
 			<div>
-				"Hello"
+				{/* "Hello"
 				<div>{this.state.message}</div>
 				<div>{this.state.user}</div>
-				<Home />
+				<Home /> */}
 			</div>
 		);
 	}

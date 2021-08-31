@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 
 import axiosInstance from "../../axios";
 
+import Joi from "joi";
+
 const blankEmail = {
 	to: "",
 	from: "",
@@ -22,6 +24,15 @@ const Compose = ({ email }) => {
 	const [body, setBody] = useState("");
 	const [isPending, setIsPending] = useState(false);
 	let navigate = useNavigate();
+
+	// const schema = {
+	// 	recipients: Joi.string()
+	// 		.required()
+	// 		.email({ multiple: true })
+	// 		.label("Recipients"),
+	// 	subject: Joi.string().required(),
+	// 	body: Joi.string().required(),
+	// };
 
 	const doSubmit = (e) => {
 		e.preventDefault();

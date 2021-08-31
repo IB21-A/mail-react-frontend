@@ -7,6 +7,7 @@ export const useMessageFetch = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 	const [messages, setMessages] = useState([]);
+	const [currentEmail, setCurrentEmail] = useState({});
 
 	// initial render
 	useEffect(() => {
