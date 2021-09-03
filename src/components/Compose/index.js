@@ -1,13 +1,13 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Wrapper } from "./Compose.styles";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import axiosInstance from "../../axios";
+import API from "../../API";
 
 import Joi from "joi";
 
@@ -18,12 +18,13 @@ const blankEmail = {
 	body: "",
 };
 
-const Compose = ({ email }) => {
+const Compose = () => {
 	const [recipients, setRecipients] = useState("");
 	const [subject, setSubject] = useState("");
 	const [body, setBody] = useState("");
 	const [isPending, setIsPending] = useState(false);
-	let navigate = useNavigate();
+	const navigate = useNavigate();
+	const { state: email } = useLocation();
 
 	// const schema = {
 	// 	recipients: Joi.string()
@@ -34,14 +35,42 @@ const Compose = ({ email }) => {
 	// 	body: Joi.string().required(),
 	// };
 
-	const doSubmit = (e) => {
+	useEffect(() => {
+		const populateReplyEmail = () => {
+			setRecipients(email.sender);
+			setSubject(formatSubject());
+			setBody(formatBody());
+		};
+
+		const formatBody = () => {
+			return `On ${email.timestamp} ${email.sender} wrote:\n${email.body}`;
+		};
+
+		const formatSubject = () => {
+			const re = /((re:*|Re:*|RE:*|re:*)+(\s)*)+/;
+			return "Re: " + email.subject.replace(re, "");
+		};
+
+		if (email) {
+			populateReplyEmail();
+		}
+	}, [email]);
+
+	const doSubmit = async (e) => {
 		e.preventDefault();
 		const email = { recipients, subject, body };
 		setIsPending(true);
-		axiosInstance.post(`emails/compose`, JSON.stringify(email)).then(() => {
-			setIsPending(false);
-			navigate("/");
-		});
+		try {
+			// axiosInstance.post(`emails/compose`, JSON.stringify(email)).then(() => {
+			// 	setIsPending(false);
+			const status = await API.sendMessage(email);
+			if (status === 201) {
+				navigate("/");
+			}
+		} catch {
+			console.log("error");
+		}
+		setIsPending(false);
 	};
 
 	return (
@@ -76,21 +105,23 @@ const Compose = ({ email }) => {
 					<Form.Label>Write your email here</Form.Label>
 					<Form.Control
 						as="textarea"
-						rows={3}
+						rows={10}
 						value={body}
 						onChange={(e) => setBody(e.target.value)}
 					/>
 				</Form.Group>
-				{!isPending && (
-					<Button variant="primary" type="submit" onSubmit={doSubmit}>
-						Send
-					</Button>
-				)}
-				{isPending && (
-					<Button variant="primary" type="submit" disabled>
-						Sending...
-					</Button>
-				)}
+				<div className="send-button">
+					{!isPending && (
+						<Button variant="primary" type="submit" onSubmit={doSubmit}>
+							Send
+						</Button>
+					)}
+					{isPending && (
+						<Button variant="primary" type="submit" disabled>
+							Sending...
+						</Button>
+					)}
+				</div>
 			</Form>
 		</Wrapper>
 	);

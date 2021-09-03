@@ -1,13 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../axios";
+import API from "../API";
 
 export const useMessageFetch = () => {
 	const [mailbox, setMailbox] = useState("inbox");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 	const [messages, setMessages] = useState([]);
-	const [currentEmail, setCurrentEmail] = useState({});
 
 	// initial render
 	useEffect(() => {
@@ -16,9 +17,11 @@ export const useMessageFetch = () => {
 				setError(false);
 				setLoading(true);
 
-				const result = await axiosInstance.get(`/emails/${mailbox}/`);
-				const emails = result.data;
-				// setMessages({ messages: emails }); // Works but creates messages.messages
+				// const result = await axiosInstance.get(`/emails/${mailbox}/`);
+				// const emails = result.data;
+
+				const emails = await API.fetchMessages(mailbox);
+
 				setMessages(emails);
 			} catch (ex) {
 				setError(true);
@@ -29,5 +32,22 @@ export const useMessageFetch = () => {
 		fetchMessages(mailbox);
 	}, [mailbox]);
 
-	return { mailbox, messages, error, loading, setMailbox };
+	// useEffect(() => {
+
+	// 	const fetchEmail = async () => {
+	// 		const email = messages.find((message) => message.id === currentEmail);
+
+	// 		setEmail(email);
+	// 	};
+
+	// 	fetchEmail();
+	// }, [currentEmail]);
+
+	return {
+		mailbox,
+		messages,
+		error,
+		loading,
+		setMailbox,
+	};
 };

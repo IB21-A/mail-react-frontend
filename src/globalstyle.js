@@ -11,8 +11,13 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        
         margin: 0;
         padding: 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        body {
+            padding: 0 2em;
+        }
     }
 `;
