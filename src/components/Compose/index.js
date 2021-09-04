@@ -44,6 +44,13 @@ const Compose = () => {
 			setCursorPosition();
 		};
 
+		const setCursorPosition = () => {
+			// set the cursor position above the reply text
+			textareaRef.current.focus();
+
+			setTimeout(() => textareaRef.current.setSelectionRange(0, 0), 100);
+		};
+
 		const formatSubject = () => {
 			const re = /((re:*|Re:*|RE:*|re:*)+(\s)*)+/;
 			return "Re: " + email.subject.replace(re, "");
@@ -53,16 +60,12 @@ const Compose = () => {
 			return `\n\nOn ${email.timestamp} ${email.sender} wrote:\n${email.body}`;
 		};
 
-		const setCursorPosition = () => {
-			// set the cursor position above the reply text
-			textareaRef.current.focus();
-			textareaRef.current.setSelectionRange(0, 0);
-		};
-
 		if (email) {
 			populateReplyEmail();
 		}
 	}, [email]);
+
+
 
 	const doSubmit = async (e) => {
 		e.preventDefault();

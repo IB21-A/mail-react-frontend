@@ -18,7 +18,7 @@ const Email = () => {
 	};
 
 	const handleArchive = () => {
-		navigate();
+		// navigate('/#archive'); Should fix the navigation
 		console.log("archive");
 	};
 
@@ -30,19 +30,20 @@ const Email = () => {
 					<div id="recipients">To: {email.recipients.join(", ")}</div>
 					<div id="timestamp">Time: {email.timestamp}</div>
 					<div id="subject">Subject: {email.subject}</div>
+					<hr />
 					<div id="message-body">{email.body}</div>
 					<div id="option-buttons">
+						<div className="reply-button">
+							<Button variant="outline-primary btn" onClick={handleReply}>
+								Reply
+							</Button>
+						</div>
 						<div className="action-buttons">
 							<Button variant="outline-danger btn-sm" onClick={handleDelete}>
 								Delete
 							</Button>
 							<Button variant="outline-primary btn-sm" onClick={handleArchive}>
 								Archive
-							</Button>
-						</div>
-						<div className="reply-button">
-							<Button variant="outline-primary btn-sm" onClick={handleReply}>
-								Reply
 							</Button>
 						</div>
 					</div>
