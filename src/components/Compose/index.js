@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { Wrapper } from "./Compose.styles";
 import Form from "react-bootstrap/Form";
@@ -25,6 +25,7 @@ const Compose = () => {
 	const [isPending, setIsPending] = useState(false);
 	const navigate = useNavigate();
 	const { state: email } = useLocation();
+	const textareaRef = useRef();
 
 	// const schema = {
 	// 	recipients: Joi.string()
@@ -40,15 +41,22 @@ const Compose = () => {
 			setRecipients(email.sender);
 			setSubject(formatSubject());
 			setBody(formatBody());
-		};
-
-		const formatBody = () => {
-			return `On ${email.timestamp} ${email.sender} wrote:\n${email.body}`;
+			setCursorPosition();
 		};
 
 		const formatSubject = () => {
 			const re = /((re:*|Re:*|RE:*|re:*)+(\s)*)+/;
 			return "Re: " + email.subject.replace(re, "");
+		};
+
+		const formatBody = () => {
+			return `\n\nOn ${email.timestamp} ${email.sender} wrote:\n${email.body}`;
+		};
+
+		const setCursorPosition = () => {
+			// set the cursor position above the reply text
+			textareaRef.current.focus();
+			textareaRef.current.setSelectionRange(0, 0);
 		};
 
 		if (email) {
@@ -104,6 +112,7 @@ const Compose = () => {
 				<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
 					<Form.Label>Write your email here</Form.Label>
 					<Form.Control
+						ref={textareaRef}
 						as="textarea"
 						rows={10}
 						value={body}
