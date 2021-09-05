@@ -13,9 +13,10 @@ const Navigation = ({ mailbox, setMailbox }) => {
 	};
 
 	const { state: redirectedMailbox } = useLocation();
+	
 
 	useEffect(() => {
-		if (redirectedMailbox) {
+		if (redirectedMailbox && redirectedMailbox.length > 0) {
 			setMailbox(redirectedMailbox);
 		}
 	});

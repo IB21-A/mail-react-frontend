@@ -12,7 +12,7 @@ const Mailbox = ({ messages, setCurrentEmail }) => {
 		const email = messages.find((message) => message.id === id);
 
 		// setEmail(email);
-		setCurrentEmail(email);
+
 		navigate("/read", { state: email });
 	};
 
