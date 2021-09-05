@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Mailbox = ({ messages, setCurrentEmail }) => {
 	const navigate = useNavigate();
+
 	const handleClick = (id) => {
 		// call setEmail so the Email component can load that email.
 		const email = messages.find((message) => message.id === id);

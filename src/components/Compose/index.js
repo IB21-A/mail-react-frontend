@@ -18,7 +18,7 @@ const blankEmail = {
 	body: "",
 };
 
-const Compose = () => {
+const Compose = ({ setMailbox }) => {
 	const [recipients, setRecipients] = useState("");
 	const [subject, setSubject] = useState("");
 	const [body, setBody] = useState("");
@@ -26,6 +26,7 @@ const Compose = () => {
 	const navigate = useNavigate();
 	const { state: email } = useLocation();
 	const textareaRef = useRef();
+	const emailToRef = useRef();
 
 	// const schema = {
 	// 	recipients: Joi.string()
@@ -62,10 +63,10 @@ const Compose = () => {
 
 		if (email) {
 			populateReplyEmail();
+		} else {
+			emailToRef.current.focus();
 		}
 	}, [email]);
-
-
 
 	const doSubmit = async (e) => {
 		e.preventDefault();
@@ -93,6 +94,7 @@ const Compose = () => {
 					size="lg">
 					<Form.Label>Email to:</Form.Label>
 					<Form.Control
+						ref={emailToRef}
 						type="email"
 						placeholder="name@cs50.com"
 						value={recipients}

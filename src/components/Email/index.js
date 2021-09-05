@@ -9,6 +9,9 @@ const Email = () => {
 	const navigate = useNavigate();
 	const { state: email } = useLocation();
 
+	// TODO toggle read/unread status
+	// TODO toggle archive status
+
 	const handleReply = () => {
 		navigate("/compose", { state: email });
 	};
@@ -18,8 +21,10 @@ const Email = () => {
 	};
 
 	const handleArchive = () => {
-		// navigate('/#archive'); Should fix the navigation
-		console.log("archive");
+		const redirectedMailbox = "archive";
+		navigate("/", { state: redirectedMailbox });
+		console.log("redirect to archive");
+		// TODO add put request to archive message
 	};
 
 	return (

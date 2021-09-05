@@ -33,11 +33,7 @@ function App() {
 
 			<Navigation mailbox={mailbox} setMailbox={setMailbox} />
 			<Routes>
-				<Route
-					exact
-					path="/compose"
-					element={<Compose currentEmail={currentEmail} />}
-				/>
+				<Route exact path="/compose" element={<Compose />} />
 				<Route
 					exact
 					path="/read"

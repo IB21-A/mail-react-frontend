@@ -24,13 +24,23 @@ export const Content = styled.div`
 	justify-content: space-between;
 	width: 100%;
 
+	div {
+		min-width: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
 	.sender {
 		font-weight: 500;
 		max-width: 30em;
+		min-width: 10em;
 	}
 
 	.subject {
 		text-align: left;
+		justify-content: flex-start;
+		width: auto;
 	}
 
 	.timestamp {
