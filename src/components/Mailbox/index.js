@@ -4,17 +4,24 @@ import MessageLine from "../MessageLine";
 
 import { Link, useNavigate } from "react-router-dom";
 
+import API from "../../API";
+
 const Mailbox = ({ messages, setCurrentEmail }) => {
 	const navigate = useNavigate();
 
 	const handleClick = (id) => {
 		// call setEmail so the Email component can load that email.
 		const email = messages.find((message) => message.id === id);
-
-		// setEmail(email);
+		markAsRead(email);
 
 		navigate("/read", { state: email });
 	};
+
+	function markAsRead(email) {
+		email.read = true;
+		API.updateRead(email);
+	}
+	// TODO add pagination
 
 	return (
 		<Wrapper>
@@ -48,6 +55,6 @@ const Mailbox = ({ messages, setCurrentEmail }) => {
 	// 		))}
 	// 	</Wrapper>
 	// );
-};
+};;
 
 export default Mailbox;

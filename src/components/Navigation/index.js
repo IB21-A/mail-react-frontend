@@ -12,9 +12,8 @@ const Navigation = ({ mailbox, setMailbox }) => {
 		return mailbox == buttonValue ? "primary btn-sm" : "outline-primary btn-sm";
 	};
 
+	// hacky way to redirect to archive after archiving an email
 	const { state: redirectedMailbox } = useLocation();
-	
-
 	useEffect(() => {
 		if (redirectedMailbox && redirectedMailbox.length > 0) {
 			setMailbox(redirectedMailbox);

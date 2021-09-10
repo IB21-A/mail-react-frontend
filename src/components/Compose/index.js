@@ -18,7 +18,7 @@ const blankEmail = {
 	body: "",
 };
 
-const Compose = ({ setMailbox }) => {
+const Compose = () => {
 	const [recipients, setRecipients] = useState("");
 	const [subject, setSubject] = useState("");
 	const [body, setBody] = useState("");

@@ -15,6 +15,12 @@ const apiSettings = {
 			await axiosInstance.post(`emails/compose`, JSON.stringify(email))
 		).status;
 	},
+	updateRead: async (email) => {
+		return await await axiosInstance.put(
+			`emails/edit/${email.id}`,
+			JSON.stringify(email)
+		).status;
+	},
 	archiveMessage: async () => {},
 	deleteMessage: async () => {},
 };
