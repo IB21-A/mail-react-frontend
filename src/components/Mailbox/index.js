@@ -19,7 +19,7 @@ const Mailbox = ({ messages, setCurrentEmail }) => {
 
 	function markAsRead(email) {
 		email.read = true;
-		API.updateRead(email);
+		API.updateReadOrArchiveStatus(email);
 	}
 	// TODO add pagination
 

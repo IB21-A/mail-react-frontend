@@ -5,12 +5,36 @@ import Button from "react-bootstrap/Button";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
+import API from "../../API";
+
 const Email = () => {
 	const navigate = useNavigate();
 	const { state: email } = useLocation();
+	const [read, setRead] = useState(email.read);
+	const [archived, setArchived] = useState(email.archived);
 
-	// TODO toggle read/unread status
+	const toggleRead = () => {
+		email.read = !email.read;
+		setRead(!read);
+		API.updateReadOrArchiveStatus(email);
+	};
+
 	// TODO toggle archive status
+	const handleArchive = () => {
+		email.archived = !email.archived;
+		setArchived(!archived);
+		API.updateReadOrArchiveStatus(email);
+
+		const redirectedMailbox = "archive";
+		navigate("/", { state: redirectedMailbox });
+	};
+
+	// const handleArchive = () => {
+	// 	const redirectedMailbox = "archive";
+	// 	navigate("/", { state: redirectedMailbox });
+	// 	console.log("redirect to archive");
+	// 	// TODO add put request to archive message
+	// };
 
 	const handleReply = () => {
 		navigate("/compose", { state: email });
@@ -18,13 +42,6 @@ const Email = () => {
 
 	const handleDelete = () => {
 		console.log("delete");
-	};
-
-	const handleArchive = () => {
-		const redirectedMailbox = "archive";
-		navigate("/", { state: redirectedMailbox });
-		console.log("redirect to archive");
-		// TODO add put request to archive message
 	};
 
 	return (
@@ -48,7 +65,10 @@ const Email = () => {
 								Delete
 							</Button>
 							<Button variant="outline-primary btn-sm" onClick={handleArchive}>
-								Archive
+								{archived ? "Unarchive" : "Archive"}
+							</Button>
+							<Button variant="outline-primary btn-sm" onClick={toggleRead}>
+								{read ? "Mark Unread" : "Mark Read"}
 							</Button>
 						</div>
 					</div>
