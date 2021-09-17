@@ -5,9 +5,9 @@ import { Wrapper } from "./Navigation.styles";
 // Bootstrap Component
 import Button from "react-bootstrap/Button";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Navigation = ({ mailbox, setMailbox }) => {
+const Navigation = ({ mailbox, setMailbox, user }) => {
 	const getButtonClasses = (buttonValue) => {
 		return mailbox == buttonValue ? "primary btn-sm" : "outline-primary btn-sm";
 	};
@@ -50,9 +50,16 @@ const Navigation = ({ mailbox, setMailbox }) => {
 						Archived
 					</Button>
 				</Link>
-				<Link to={`/logout`}>
-					<Button variant="outline-primary btn-sm">Logout</Button>
-				</Link>
+				{user && (
+					<Link to={`/logout`}>
+						<Button variant="outline-primary btn-sm">Logout</Button>
+					</Link>
+				)}
+				{!user && (
+					<Link to={`/login`}>
+						<Button variant="outline-primary btn-sm">Login</Button>
+					</Link>
+				)}
 			</Wrapper>
 		</>
 	);

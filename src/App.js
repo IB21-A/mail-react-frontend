@@ -16,7 +16,8 @@ import Navigation from "./components/Navigation";
 import Mailbox from "./components/Mailbox";
 import Compose from "./components/Compose";
 import Email from "./components/Email";
-import { Login } from "./components/Login";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
 
 // Styles
 import { GlobalStyle } from "./globalstyle";
@@ -25,15 +26,17 @@ function App() {
 	const { messages, setMailbox, mailbox } = useMessageFetch();
 	const history = createBrowserHistory();
 	const [currentEmail, setCurrentEmail] = useState();
+	const [user, setUser] = useState(localStorage.getItem("access_token"));
 
 	return (
 		<Router history={history}>
-			<GetData />
+			{/* <GetData /> */}
 			{/* <Home /> */}
 
-			<Navigation mailbox={mailbox} setMailbox={setMailbox} />
+			<Navigation mailbox={mailbox} setMailbox={setMailbox} user={user} />
 			<Routes>
-				<Route exact path="/login" element={<Login />} />
+				<Route exact path="/login" element={<Login setUser={setUser} />} />
+				<Route exact path="/logout" element={<Logout />} />
 				<Route exact path="/compose" element={<Compose />} />
 				<Route
 					exact
