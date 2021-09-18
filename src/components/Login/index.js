@@ -7,20 +7,24 @@ import Button from "react-bootstrap/Button";
 // helpers
 import { useNavigate } from "react-router-dom";
 import API from "../../API";
+// hooks
+import {useAuth} from '../../hooks/useAuth';
 
 const Login = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
     const [error, setError] = useState()
     const navigate = useNavigate();
+    const auth = useAuth();
 
 	const doSubmit = async(e) => {
         setError(false);
         console.log('dosubmit');
 		e.preventDefault();
-        const result = await API.login(username, password);
+        const user = await auth.login(username, password);
+        // const user = await API.login(username, password);
 
-        if (!result) {
+        if (!user) {
             setError(true);
         }
         

@@ -44,10 +44,10 @@ const apiSettings = {
 			axiosInstance.defaults.headers["Authorization"] =
 				"JWT " + localStorage.getItem("access_token");
 
-			let result = jwtDecode(res.data.access);
+			let user = jwtDecode(res.data.access);
 			// console.log(res);
 			window.location.href = "/";
-			return result;
+			return user;
 		} catch (ex) {
 			if (ex.response && ex.response.status === 400) {
 				console.log(ex.response.data);

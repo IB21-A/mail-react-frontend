@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 // Styles
 import { Wrapper } from "./Logout.styles";
 
-// helpers
-import API from "../../API";
+// hooks
+import { useAuth } from "../../hooks/useAuth";
 
 const Logout = () => {
+	const auth = useAuth();
 	useEffect(() => {
-		API.logout();
+		auth.logout();
 	}, []);
 
 	return (

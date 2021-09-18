@@ -8,6 +8,7 @@ import "./App.css";
 // Hooks
 import { useMessageFetch } from "./hooks/useMessageFetch";
 import { createBrowserHistory } from "history";
+import { ProvideAuth } from "./hooks/useAuth";
 
 // Components
 import GetData from "./components/getData";
@@ -32,31 +33,31 @@ function App() {
 		<Router history={history}>
 			{/* <GetData /> */}
 			{/* <Home /> */}
-
-			<Navigation mailbox={mailbox} setMailbox={setMailbox} user={user} />
-			<Routes>
-				<Route exact path="/login" element={<Login setUser={setUser} />} />
-				<Route exact path="/logout" element={<Logout />} />
-				<Route exact path="/compose" element={<Compose />} />
-				<Route
-					exact
-					path="/read"
-					element={<Email currentEmail={currentEmail} />}
-				/>
-				<Route
-					exact
-					path="/reply"
-					element={<Email currentEmail={currentEmail} />}
-				/>
-				<Route
-					exact
-					path="/"
-					element={
-						<Mailbox messages={messages} setCurrentEmail={setCurrentEmail} />
-					}
-				/>
-			</Routes>
-
+			<ProvideAuth>
+				<Navigation mailbox={mailbox} setMailbox={setMailbox} user={user} />
+				<Routes>
+					<Route exact path="/login" element={<Login setUser={setUser} />} />
+					<Route exact path="/logout" element={<Logout />} />
+					<Route exact path="/compose" element={<Compose />} />
+					<Route
+						exact
+						path="/read"
+						element={<Email currentEmail={currentEmail} />}
+					/>
+					<Route
+						exact
+						path="/reply"
+						element={<Email currentEmail={currentEmail} />}
+					/>
+					<Route
+						exact
+						path="/"
+						element={
+							<Mailbox messages={messages} setCurrentEmail={setCurrentEmail} />
+						}
+					/>
+				</Routes>
+			</ProvideAuth>
 			<GlobalStyle />
 		</Router>
 	);
