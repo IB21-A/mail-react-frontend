@@ -15,18 +15,17 @@ const Email = () => {
 
 	const toggleRead = () => {
 		email.read = !email.read;
-		setRead(!read);
+		setRead((prevRead) => !prevRead);
 		API.updateReadOrArchiveStatus(email);
 	};
 
 	// TODO toggle archive status
 	const handleArchive = () => {
 		email.archived = !email.archived;
-		setArchived(!archived);
+		setArchived((prevArchived) => !prevArchived);
 		API.updateReadOrArchiveStatus(email);
 
-		const redirectedMailbox = "archive";
-		navigate("/", { state: redirectedMailbox });
+		navigate("/mailbox/archive");
 	};
 
 	// const handleArchive = () => {

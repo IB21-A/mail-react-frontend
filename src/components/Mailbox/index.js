@@ -1,19 +1,47 @@
-import React from "react";
-import { Wrapper } from "./Mailbox.styles";
-import MessageLine from "../MessageLine";
+import React, { useEffect, useState } from "react";
 
-import { Link, useNavigate } from "react-router-dom";
+// styles
+import { Wrapper } from "./Mailbox.styles";
+
+// components
+import MessageLine from "../MessageLine";
+import Spinner from "../common/Spinner";
+
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import API from "../../API";
 
-const Mailbox = ({ messages, setCurrentEmail }) => {
+const Mailbox = () => {
+	let { mailbox } = useParams();
 	const navigate = useNavigate();
+	const [currentMailbox, setCurrentMailbox] = useState(mailbox);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
+	const [messages, setMessages] = useState([]);
+
+	useEffect(() => {
+		const fetchMessages = async () => {
+			try {
+				setError(false);
+				setLoading(true);
+
+				const emails = await API.fetchMessages(mailbox);
+
+				setMessages(emails);
+			} catch (ex) {
+				setError(true);
+			}
+			setLoading(false);
+		};
+
+		fetchMessages(mailbox);
+	}, [mailbox]);
 
 	const handleClick = (id) => {
-		// call setEmail so the Email component can load that email.
 		const email = messages.find((message) => message.id === id);
 		markAsRead(email);
 
+		// pass the selected message through state props into the read email component
 		navigate("/read", { state: email });
 	};
 
@@ -25,17 +53,21 @@ const Mailbox = ({ messages, setCurrentEmail }) => {
 
 	return (
 		<Wrapper>
-			{messages.map((message) => (
-				<MessageLine
-					key={message.id}
-					id={message.id}
-					sender={message.sender}
-					subject={message.subject}
-					read={message.read}
-					timestamp={message.timestamp}
-					handleClick={handleClick}
-				/>
-			))}
+			{loading ? (
+				<Spinner />
+			) : (
+				messages.map((message) => (
+					<MessageLine
+						key={message.id}
+						id={message.id}
+						sender={message.sender}
+						subject={message.subject}
+						read={message.read}
+						timestamp={message.timestamp}
+						handleClick={handleClick}
+					/>
+				))
+			)}
 		</Wrapper>
 	);
 	// return (
@@ -55,6 +87,6 @@ const Mailbox = ({ messages, setCurrentEmail }) => {
 	// 		))}
 	// 	</Wrapper>
 	// );
-};;
+};
 
 export default Mailbox;

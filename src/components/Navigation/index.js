@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 // Styles
 import { Wrapper } from "./Navigation.styles";
 // Bootstrap Component
 import Button from "react-bootstrap/Button";
+import { Navbar, Nav, Container } from "react-bootstrap";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -12,8 +13,12 @@ const Navigation = ({ mailbox, setMailbox, user }) => {
 		return mailbox == buttonValue ? "primary btn-sm" : "outline-primary btn-sm";
 	};
 
+	const activeClassName = "active";
+	const className = "inactive";
+
 	// hacky way to redirect to archive after archiving an email
 	const { state: redirectedMailbox } = useLocation();
+	const location = useLocation();
 	useEffect(() => {
 		if (redirectedMailbox && redirectedMailbox.length > 0) {
 			setMailbox(redirectedMailbox);
@@ -23,43 +28,24 @@ const Navigation = ({ mailbox, setMailbox, user }) => {
 	return (
 		<>
 			<Wrapper className="navigaton">
-				<Link to={`/`}>
-					<Button
-						variant={getButtonClasses("inbox")}
-						value="inbox"
-						onClick={(e) => setMailbox(e.currentTarget.value)}>
-						Inbox
-					</Button>
-				</Link>
-				<Link to={`/compose`}>
-					<Button variant="outline-primary btn-sm">Compose</Button>
-				</Link>
-				<Link to={`/`}>
-					<Button
-						variant={getButtonClasses("sent")}
-						value="sent"
-						onClick={(e) => setMailbox(e.currentTarget.value)}>
-						Sent
-					</Button>
-				</Link>
-				<Link to={`/`}>
-					<Button
-						variant={getButtonClasses("archive")}
-						value="archive"
-						onClick={(e) => setMailbox(e.currentTarget.value)}>
-						Archived
-					</Button>
-				</Link>
-				{user && (
-					<Link to={`/logout`}>
-						<Button variant="outline-primary btn-sm">Logout</Button>
-					</Link>
-				)}
-				{!user && (
-					<Link to={`/login`}>
-						<Button variant="outline-primary btn-sm">Login</Button>
-					</Link>
-				)}
+				<Navbar collapseOnSelect expand="sm" bg="primary" variant="dark">
+					<Container>
+						<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+						<Navbar.Collapse id="responsive-navbar-nav">
+							<Nav className="me-auto" activeKey={location.pathname}>
+								<Nav.Link href="/mailbox/inbox">Inbox</Nav.Link>
+								<Nav.Link href="/compose">Compose</Nav.Link>
+								<Nav.Link href="/mailbox/sent">Sent</Nav.Link>
+								<Nav.Link href="/mailbox/archive">Archive</Nav.Link>
+							</Nav>
+						</Navbar.Collapse>
+						{user && <Navbar.Brand>Username</Navbar.Brand>}
+						<Nav>
+							{user && <Nav.Link href="/logout">Logout</Nav.Link>}
+							{!user && <Nav.Link href="/login">Login</Nav.Link>}
+						</Nav>
+					</Container>
+				</Navbar>
 			</Wrapper>
 		</>
 	);

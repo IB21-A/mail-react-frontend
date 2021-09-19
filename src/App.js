@@ -6,7 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 // Hooks
-import { useMessageFetch } from "./hooks/useMessageFetch";
 import { createBrowserHistory } from "history";
 import { ProvideAuth } from "./hooks/useAuth";
 
@@ -24,9 +23,9 @@ import Logout from "./components/Logout";
 import { GlobalStyle } from "./globalstyle";
 
 function App() {
-	const { messages, setMailbox, mailbox } = useMessageFetch();
+	
 	const history = createBrowserHistory();
-	const [currentEmail, setCurrentEmail] = useState();
+	// const [currentEmail, setCurrentEmail] = useState();
 	const [user, setUser] = useState(localStorage.getItem("access_token"));
 
 	return (
@@ -34,28 +33,14 @@ function App() {
 			{/* <GetData /> */}
 			{/* <Home /> */}
 			<ProvideAuth>
-				<Navigation mailbox={mailbox} setMailbox={setMailbox} user={user} />
+				<Navigation user={user} />
 				<Routes>
 					<Route exact path="/login" element={<Login setUser={setUser} />} />
 					<Route exact path="/logout" element={<Logout />} />
 					<Route exact path="/compose" element={<Compose />} />
-					<Route
-						exact
-						path="/read"
-						element={<Email currentEmail={currentEmail} />}
-					/>
-					<Route
-						exact
-						path="/reply"
-						element={<Email currentEmail={currentEmail} />}
-					/>
-					<Route
-						exact
-						path="/"
-						element={
-							<Mailbox messages={messages} setCurrentEmail={setCurrentEmail} />
-						}
-					/>
+					<Route exact path="/read" element={<Email />} />
+					<Route exact path="/reply" element={<Email />} />
+					<Route exact path="/mailbox/:mailbox" element={<Mailbox />} />
 				</Routes>
 			</ProvideAuth>
 			<GlobalStyle />

@@ -4,6 +4,9 @@ export const GlobalStyle = createGlobalStyle`
     :root {
         ${"" /* --maxWidth: 1280px; */}
         --maxWidth: 1000px;
+        --lightGrey: #aaa;
+        --medGrey: #353535;
+        --darkGrey: #1c1c1c;
     }
 
     * {

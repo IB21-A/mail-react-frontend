@@ -17,9 +17,6 @@ export const useMessageFetch = () => {
 				setError(false);
 				setLoading(true);
 
-				// const result = await axiosInstance.get(`/emails/${mailbox}/`);
-				// const emails = result.data;
-
 				const emails = await API.fetchMessages(mailbox);
 
 				setMessages(emails);

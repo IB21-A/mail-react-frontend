@@ -43,6 +43,15 @@ export const Content = styled.div`
 		width: auto;
 	}
 
-	.timestamp {
+	@media screen and (max-width: 600px) {
+		.timestamp {
+			display: none;
+		}
+
+		.subject {
+			text-align: left;
+			justify-content: flex-start;
+			width: 100%;
+		}
 	}
 `;
