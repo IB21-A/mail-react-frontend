@@ -7,8 +7,12 @@ import Button from "react-bootstrap/Button";
 import { Navbar, Nav, Container } from "react-bootstrap";
 
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
-const Navigation = ({ mailbox, setMailbox, user }) => {
+const Navigation = ({ mailbox, setMailbox }) => {
+	const auth = useAuth();
+	const user = auth.user;
+
 	const getButtonClasses = (buttonValue) => {
 		return mailbox == buttonValue ? "primary btn-sm" : "outline-primary btn-sm";
 	};
@@ -32,14 +36,16 @@ const Navigation = ({ mailbox, setMailbox, user }) => {
 					<Container>
 						<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 						<Navbar.Collapse id="responsive-navbar-nav">
-							<Nav className="me-auto" activeKey={location.pathname}>
-								<Nav.Link href="/mailbox/inbox">Inbox</Nav.Link>
-								<Nav.Link href="/compose">Compose</Nav.Link>
-								<Nav.Link href="/mailbox/sent">Sent</Nav.Link>
-								<Nav.Link href="/mailbox/archive">Archive</Nav.Link>
-							</Nav>
+							{user && (
+								<Nav className="me-auto" activeKey={location.pathname}>
+									<Nav.Link href="/mailbox/inbox">Inbox</Nav.Link>
+									<Nav.Link href="/compose">Compose</Nav.Link>
+									<Nav.Link href="/mailbox/sent">Sent</Nav.Link>
+									<Nav.Link href="/mailbox/archive">Archive</Nav.Link>
+								</Nav>
+							)}
 						</Navbar.Collapse>
-						{user && <Navbar.Brand>Username</Navbar.Brand>}
+						{user && <Navbar.Brand>{user.username}</Navbar.Brand>}
 						<Nav>
 							{user && <Nav.Link href="/logout">Logout</Nav.Link>}
 							{!user && <Nav.Link href="/login">Login</Nav.Link>}

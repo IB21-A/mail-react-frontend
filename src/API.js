@@ -46,7 +46,7 @@ const apiSettings = {
 
 			let user = jwtDecode(res.data.access);
 			// console.log(res);
-			window.location.href = "/";
+			window.location.href = "/mailbox/inbox";
 			return user;
 		} catch (ex) {
 			if (ex.response && ex.response.status === 400) {
@@ -66,9 +66,9 @@ const apiSettings = {
 	},
 	getCurrentUser: async () => {
 		try {
-			let jwt = jwtDecode(localStorage.getItem("access_token"));
-			// console.log("current user:" + jwt.user_id);
-			return jwt.user_id; // return user_id
+			let jwt = await jwtDecode(localStorage.getItem("access_token"));
+			console.log("current user:" + jwt.username);
+			return jwt.username; // return username
 		} catch (ex) {}
 	},
 };

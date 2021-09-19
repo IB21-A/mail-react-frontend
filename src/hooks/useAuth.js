@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
+import jwtDecode from "jwt-decode";
+
 import API from "../API";
 
 const authContext = createContext();
@@ -21,6 +23,7 @@ export function useProvideAuth() {
 	const login = async (username, password) => {
 		console.log("useProvideAuth.login"); // Debug output, delete
 		const user = await API.login(username, password);
+		console.log(user);
 		setUser(user);
 		return user;
 	};
@@ -30,23 +33,41 @@ export function useProvideAuth() {
 		setUser(null);
 		API.logout();
 	};
+
+	const getUser = async () => {
+		return await API.getCurrentUser();
+		// if (user) {
+		// 	try {
+		// 		console.log("try getUser");
+		// 		return user;
+		// 	} catch (ex) {
+		// 		console.log("error decoding user");
+		// 	}
+		// }
+		// console.log("nouser");
+		// return null;
+	};
 	//
 
 	// Subscribe to user on mount
 	// Because this sets state in the callback it will cause any ...
 	// ... component that utilizes this hook to re-render with the ...
 	// ... latest auth object.
-	//   useEffect(() => {
-	//     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-	//       if (user) {
-	//         setUser(user);
-	//       } else {
-	//         setUser(false);
-	//       }
-	//     });
-	//     // Cleanup subscription on unmount
-	//     return () => unsubscribe();
-	//   }, []);
+	useEffect(() => {
+		try {
+			let token = localStorage.getItem("access_token");
+			// if (token === null) {
+			// 	setUser(null);
+			// 	return;
+			// }
+			setUser(jwtDecode(token));
+		} catch (ex) {
+			setUser(null);
+			return;
+		}
 
-	return { user, login, logout };
+		// Cleanup subscription on unmount
+	}, []);
+
+	return { user, login, logout, getUser };
 }

@@ -23,19 +23,17 @@ import Logout from "./components/Logout";
 import { GlobalStyle } from "./globalstyle";
 
 function App() {
-	
 	const history = createBrowserHistory();
 	// const [currentEmail, setCurrentEmail] = useState();
-	const [user, setUser] = useState(localStorage.getItem("access_token"));
 
 	return (
 		<Router history={history}>
 			{/* <GetData /> */}
 			{/* <Home /> */}
 			<ProvideAuth>
-				<Navigation user={user} />
+				<Navigation />
 				<Routes>
-					<Route exact path="/login" element={<Login setUser={setUser} />} />
+					<Route exact path="/login" element={<Login />} />
 					<Route exact path="/logout" element={<Logout />} />
 					<Route exact path="/compose" element={<Compose />} />
 					<Route exact path="/read" element={<Email />} />
