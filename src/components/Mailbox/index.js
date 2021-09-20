@@ -33,7 +33,6 @@ const Mailbox = () => {
 			}
 			setLoading(false);
 		};
-
 		fetchMessages(mailbox);
 	}, [mailbox]);
 
@@ -67,6 +66,9 @@ const Mailbox = () => {
 						handleClick={handleClick}
 					/>
 				))
+			)}
+			{messages.length < 1 && (
+				<div className="no-messages">You have no {mailbox} messages.</div>
 			)}
 		</Wrapper>
 	);

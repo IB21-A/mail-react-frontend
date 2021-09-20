@@ -18,6 +18,7 @@ import Compose from "./components/Compose";
 import Email from "./components/Email";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
+import Register from "./components/Register";
 
 // Styles
 import { GlobalStyle } from "./globalstyle";
@@ -33,6 +34,7 @@ function App() {
 			<ProvideAuth>
 				<Navigation />
 				<Routes>
+					<Route exact path="/register" element={<Register />} />
 					<Route exact path="/login" element={<Login />} />
 					<Route exact path="/logout" element={<Logout />} />
 					<Route exact path="/compose" element={<Compose />} />

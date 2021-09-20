@@ -33,6 +33,18 @@ const apiSettings = {
 		).status;
 	},
 	deleteMessage: async () => {},
+	register: async (username, password) => {
+		const res = await axiosInstance.post(`register/`, {
+			email: username,
+			password: password,
+			confirmation: password,
+		});
+		if (res.status == 201) {
+			console.log("created user, attempting login");
+			apiSettings.login(username, password);
+		}
+		return res;
+	},
 	login: async (username, password) => {
 		try {
 			const res = await axiosInstance.post(`token/`, {

@@ -48,7 +48,12 @@ const Navigation = ({ mailbox, setMailbox }) => {
 						{user && <Navbar.Brand>{user.username}</Navbar.Brand>}
 						<Nav>
 							{user && <Nav.Link href="/logout">Logout</Nav.Link>}
-							{!user && <Nav.Link href="/login">Login</Nav.Link>}
+							{!user && (
+								<Nav>
+									<Nav.Link href="/register">Register</Nav.Link>
+									<Nav.Link href="/login">Login</Nav.Link>
+								</Nav>
+							)}
 						</Nav>
 					</Container>
 				</Navbar>
