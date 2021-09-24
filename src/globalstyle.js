@@ -18,6 +18,11 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0;
     }
 
+    .error {
+		color: red;
+		font-size: 1.1em;
+	}
+
     @media screen and (max-width: 1000px) {
         body {
             padding: 0 2em;

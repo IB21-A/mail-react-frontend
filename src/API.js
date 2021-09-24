@@ -34,15 +34,22 @@ const apiSettings = {
 	},
 	deleteMessage: async () => {},
 	register: async (username, password) => {
-		const res = await axiosInstance.post(`register/`, {
-			email: username,
-			password: password,
-			confirmation: password,
-		});
-		if (res.status == 201) {
+
+		const res = await axiosInstance
+			.post(`register/`, {
+				email: username,
+				password: password,
+				confirmation: password,
+			})
+			.catch((error) => {
+				return error.response.data.message;
+			});
+		if (res.status === 201) {
 			console.log("created user, attempting login");
 			apiSettings.login(username, password);
+			return;
 		}
+		
 		return res;
 	},
 	login: async (username, password) => {
