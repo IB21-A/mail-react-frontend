@@ -25,7 +25,9 @@ const Email = () => {
     setArchived((prevArchived) => !prevArchived);
     await API.updateReadOrArchiveStatus(email);
 
-    navigate("/mailbox/archive");
+    if (email.archived === true) {
+    return navigate("/mailbox/archive");
+  }
   };
 
   // const handleArchive = () => {
