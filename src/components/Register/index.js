@@ -48,9 +48,7 @@ const Register = () => {
 		} catch (e) {
 			console.log(e);
 		}
-		// Attempt to register, check for existing email
-		// If existing email, display on page
-		// Else register
+
 		return;
 	};
 
@@ -69,6 +67,7 @@ const Register = () => {
 
 	return (
 		<Wrapper>
+			<h1>Register</h1>
 			<Form>
 				{/* {error && (
 					<div className="error">

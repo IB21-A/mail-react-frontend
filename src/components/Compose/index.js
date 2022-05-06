@@ -77,7 +77,7 @@ const Compose = () => {
 			// 	setIsPending(false);
 			const status = await API.sendMessage(email);
 			if (status === 201) {
-				navigate("/");
+				navigate("/mailbox/inbox");
 			}
 		} catch {
 			console.log("error");

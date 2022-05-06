@@ -35,26 +35,37 @@ const Navigation = ({ mailbox, setMailbox }) => {
 				<Navbar collapseOnSelect expand="sm" bg="primary" variant="dark">
 					<Container>
 						<Navbar.Toggle aria-controls="responsive-navbar-nav" />
-						<Navbar.Collapse id="responsive-navbar-nav">
-							{user && (
-								<Nav className="me-auto" activeKey={location.pathname}>
-									<Nav.Link href="/mailbox/inbox">Inbox</Nav.Link>
-									<Nav.Link href="/compose">Compose</Nav.Link>
-									<Nav.Link href="/mailbox/sent">Sent</Nav.Link>
-									<Nav.Link href="/mailbox/archive">Archive</Nav.Link>
-								</Nav>
-							)}
-						</Navbar.Collapse>
-						{user && <Navbar.Brand>{user.username}</Navbar.Brand>}
-						<Nav>
-							{user && <Nav.Link href="/logout">Logout</Nav.Link>}
-							{!user && (
+
+						{!user && (
+							<Nav>
+								<Navbar.Brand>Web Mail</Navbar.Brand>
+
+								<Navbar.Collapse id="responsive-navbar-nav">
+									<Nav>
+										<Nav.Link href="/register">Register</Nav.Link>
+										<Nav.Link href="/login">Login</Nav.Link>
+									</Nav>
+								</Navbar.Collapse>
+							</Nav>
+						)}
+						{user && (
+							<>
+								<Navbar.Collapse id="responsive-navbar-nav">
+									<Nav className="me-auto" activeKey={location.pathname}>
+										<Nav.Link href="/mailbox/inbox">Inbox</Nav.Link>
+										<Nav.Link href="/compose">Compose</Nav.Link>
+										<Nav.Link href="/mailbox/sent">Sent</Nav.Link>
+										<Nav.Link href="/mailbox/archive">Archive</Nav.Link>
+									</Nav>
+								</Navbar.Collapse>
 								<Nav>
-									<Nav.Link href="/register">Register</Nav.Link>
-									<Nav.Link href="/login">Login</Nav.Link>
+									<Navbar.Brand>{user.username}</Navbar.Brand>
 								</Nav>
-							)}
-						</Nav>
+								<Nav>
+									<Nav.Link href="/logout">Logout</Nav.Link>
+								</Nav>
+							</>
+						)}
 					</Container>
 				</Navbar>
 			</Wrapper>

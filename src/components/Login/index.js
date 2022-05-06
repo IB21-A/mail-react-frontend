@@ -34,9 +34,13 @@ const Login = () => {
     // if (API.getCurrentUser()) { navigate('/')};
 	return (
 		<Wrapper>
-            
+			<h1>Login</h1>
 			<Form>
-            {error && <div className='error'>Username or Password incorrect. Try again.</div>}
+				{error && (
+					<div className="error">
+						Username or Password incorrect. Try again.
+					</div>
+				)}
 				<Form.Group className="mb-3" controlId="formBasicEmail">
 					<Form.Label>Username</Form.Label>
 					<Form.Control
