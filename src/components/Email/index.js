@@ -20,14 +20,14 @@ const Email = () => {
   };
 
   // TODO toggle archive status
-  const handleArchive = () => {
+  const handleArchive = async () => {
     email.archived = !email.archived;
     setArchived((prevArchived) => !prevArchived);
     await API.updateReadOrArchiveStatus(email);
 
     if (email.archived === true) {
-    return navigate("/mailbox/archive");
-  }
+      return navigate("/mailbox/archive");
+    }
   };
 
   // const handleArchive = () => {
