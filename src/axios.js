@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://mail-thom.herokuapp.com:8000/api/";
+const baseURL = "https://mail-thom.herokuapp.com/api/";
 
 const axiosInstance = axios.create({
   baseURL: baseURL,

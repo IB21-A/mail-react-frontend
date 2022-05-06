@@ -40,7 +40,7 @@ const apiSettings = {
       .post(`register/`, {
         email: username,
         password: password,
-        confirmation: password + "i",
+        confirmation: password,
       })
       .catch((error) => {
         console.log(error.response.data);
