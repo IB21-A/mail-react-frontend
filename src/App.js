@@ -24,28 +24,26 @@ import Register from "./components/Register";
 import { GlobalStyle } from "./globalstyle";
 
 function App() {
-	const history = createBrowserHistory();
-	// const [currentEmail, setCurrentEmail] = useState();
+  const history = createBrowserHistory();
 
-	return (
-		<Router history={history}>
-			{/* <GetData /> */}
-			{/* <Home /> */}
-			<ProvideAuth>
-				<Navigation />
-				<Routes>
-					<Route exact path="/register" element={<Register />} />
-					<Route exact path="/login" element={<Login />} />
-					<Route exact path="/logout" element={<Logout />} />
-					<Route exact path="/compose" element={<Compose />} />
-					<Route exact path="/read" element={<Email />} />
-					<Route exact path="/reply" element={<Email />} />
-					<Route exact path="/mailbox/:mailbox" element={<Mailbox />} />
-				</Routes>
-			</ProvideAuth>
-			<GlobalStyle />
-		</Router>
-	);
+  return (
+    <Router history={history}>
+      <ProvideAuth>
+        <Navigation />
+        <Routes>
+          <Route exact path="/register" element={<Register />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/logout" element={<Logout />} />
+          <Route exact path="/compose" element={<Compose />} />
+          <Route exact path="/read" element={<Email />} />
+          <Route exact path="/reply" element={<Email />} />
+          <Route exact path="/mailbox/:mailbox" element={<Mailbox />} />
+          <Route exact path="/" element={<Login />} />
+        </Routes>
+      </ProvideAuth>
+      <GlobalStyle />
+    </Router>
+  );
 }
 
 export default App;
