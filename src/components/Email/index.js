@@ -30,19 +30,12 @@ const Email = () => {
     }
   };
 
-  // const handleArchive = () => {
-  // 	const redirectedMailbox = "archive";
-  // 	navigate("/", { state: redirectedMailbox });
-  // 	console.log("redirect to archive");
-  // 	// TODO add put request to archive message
-  // };
-
   const handleReply = () => {
     navigate("/compose", { state: email });
   };
 
-  const handleDelete = () => {
-    API.deleteMessage(email);
+  const handleDelete = async () => {
+    await API.deleteMessage(email);
     navigate("/mailbox/inbox", { state: email });
   };
 
