@@ -18,7 +18,7 @@ const Login = () => {
   const auth = useAuth();
 
   useEffect(() => {
-    console.log(document.referrer === "https://mail-thom.heroku.com");
+    console.log(document.referrer);
   });
 
   const doSubmit = async (e) => {
