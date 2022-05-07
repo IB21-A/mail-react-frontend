@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Wrapper, Content } from "./Email.styles";
 import Button from "react-bootstrap/Button";
