@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 // Styles
 import { Wrapper } from "./Login.styles";
-// React components
+// React-Bootstrap components
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-// helpers
-import { useNavigate } from "react-router-dom";
-import API from "../../API";
+// Referal from ThomCodes
+import ThomCodesModal from "../ThomCodesModal";
+
 // hooks
 import { useAuth } from "../../hooks/useAuth";
 
@@ -14,12 +14,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState();
-  const navigate = useNavigate();
   const auth = useAuth();
-
-  useEffect(() => {
-    console.log(document.referrer);
-  });
 
   const doSubmit = async (e) => {
     setError(false);
@@ -34,6 +29,7 @@ const Login = () => {
 
   return (
     <Wrapper>
+      <ThomCodesModal />
       <h1>Login</h1>
       <Form>
         {error && (
@@ -64,7 +60,7 @@ const Login = () => {
           />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={doSubmit}>
-          Submit
+          Login
         </Button>
       </Form>
     </Wrapper>
