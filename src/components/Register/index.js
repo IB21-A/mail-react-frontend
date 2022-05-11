@@ -76,7 +76,7 @@ const Register = () => {
           <Form.Control
             name="email"
             type="email"
-            placeholder="Enter Email i.e. yourname@thomcodes.com"
+            placeholder="yourname@domain.com"
             value={data.email}
             onChange={(e) => handleChange(e)}
           />
