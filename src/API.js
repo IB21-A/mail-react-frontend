@@ -33,7 +33,12 @@ const apiSettings = {
     ).status;
   },
   deleteMessage: async (email) => {
-    return await await axiosInstance.delete(`emails/delete/${email.id}`);
+    try {
+      await axiosInstance.delete(`emails/delete/${email.id}`);
+      return;
+    } catch (error) {
+      return console.log(error);
+    }
   },
   register: async (username, password) => {
     const res = await axiosInstance

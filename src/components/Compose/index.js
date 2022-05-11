@@ -23,6 +23,7 @@ const Compose = () => {
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
   const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const { state: email } = useLocation();
   const textareaRef = useRef();
@@ -70,6 +71,7 @@ const Compose = () => {
 
   const doSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     const email = { recipients, subject, body };
     setIsPending(true);
     try {
@@ -80,7 +82,7 @@ const Compose = () => {
         navigate("/mailbox/inbox");
       }
     } catch {
-      console.log("error");
+      setError("Email doesn't exist");
     }
     setIsPending(false);
   };
@@ -88,6 +90,7 @@ const Compose = () => {
   return (
     <Wrapper>
       <Form onSubmit={doSubmit}>
+        {error && <div className="error">{error}</div>}
         <Form.Group
           className="mb-3"
           controlId="exampleForm.ControlInput1"

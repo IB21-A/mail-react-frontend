@@ -36,7 +36,7 @@ const Email = () => {
 
   const handleDelete = async () => {
     await API.deleteMessage(email);
-    navigate("/mailbox/inbox", { state: email });
+    navigate("/mailbox/inbox");
   };
 
   return (
