@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // Styles
 import { Wrapper } from "./Login.styles";
 // React-Bootstrap components
