@@ -30,8 +30,9 @@ const ThomCodesModal = () => {
         <Modal.Body>
           <p>I see you're visiting via link from my portolio site! </p>
           <p>
-            Feel free to create an account by visiting the register link, or you
-            can reach out to me at{" "}
+            Feel free to create an account by visiting the register link (You
+            can make up an email address, as long as it ends in
+            '@somedomain.com'), or you can reach out to me at{" "}
             <a href="mailto:Thom@thomcodes.com">Thom@thomcodes.com</a> and I'll
             send you personalized account!
           </p>
